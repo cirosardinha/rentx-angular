@@ -4,5 +4,5 @@ export interface ILoginResponse {
     email: string;
   };
   token: string;
-  refreshToken: string;
+  refresh_token: string;
 }
