@@ -80,12 +80,12 @@
       </div>
 
       <button type="submit" [disabled]="form.invalid"
-        class="w-full py-4 mb-2 bg-orange-400 hover:bg-orange-500 text-white font-semibold rounded-lg transition-colors disabled:bg-orange-200 disabled:cursor-not-allowed">
+        class="w-full py-4 mb-2 bg-orange-400 hover:bg-orange-500 text-white font-semibold rounded-lg cursor-pointer disabled:bg-orange-200 disabled:cursor-not-allowed">
         {{ isLogin ? 'Login' : 'Cadastrar' }}
       </button>
 
       <button type="button" (click)="toggleForm()"
-        class="w-full py-4 bg-gray-800 hover:bg-gray-700 text-white font-semibold rounded-lg transition-colors">
+        class="w-full py-4 bg-gray-800 hover:bg-gray-700 text-white font-semibold rounded-lg cursor-pointer">
         {{ isLogin ? 'Criar conta gratuita' : 'Já tenho conta' }}
       </button>
 

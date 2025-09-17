@@ -6,6 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { AuthService } from '../../../../core/services/auth-service';
 
 @Component({
   selector: 'app-auth-form',
@@ -16,7 +17,11 @@ import {
 export class AuthForm {
   isLogin = true;
   form: FormGroup;
-  constructor(private fb: FormBuilder, private authApiService: AuthApiService) {
+  constructor(
+    private fb: FormBuilder,
+    private authApiService: AuthApiService,
+    private authService: AuthService
+  ) {
     this.form = this.fb.group({
       name: [
         '',
@@ -48,7 +53,11 @@ export class AuthForm {
   onLoginSubmit() {
     this.authApiService.login(this.form.value).subscribe({
       next: (response) => {
-        console.log('login realizado com sucesso', response);
+        this.authService.login(response.token, response.refresh_token);
+        console.log(
+          'login realizado com sucesso',
+          'usuário:' + response.user.name
+        );
       },
       error: (error) => {
         console.error('erro ao realizar login', error);

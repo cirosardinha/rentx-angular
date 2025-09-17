@@ -20,4 +20,10 @@ export class AuthApiService {
   register(payload: IRegisterPayload): Observable<void> {
     return this.http.post<void>(`${this.apiUrl}/users`, payload);
   }
+
+  refreshToken(refreshToken: string): Observable<ILoginResponse> {
+    return this.http.post<ILoginResponse>(`${this.apiUrl}/refresh-token`, {
+      refresh_token: refreshToken,
+    });
+  }
 }
