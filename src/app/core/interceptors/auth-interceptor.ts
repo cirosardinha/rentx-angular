@@ -4,9 +4,9 @@ import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
 import { catchError, switchMap, throwError } from 'rxjs';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const authService = inject(AuthService);
+  const _authService = inject(AuthService);
 
-  const accessToken = authService.getAccessToken();
+  const accessToken = _authService.getAccessToken();
 
   const authReq = req.clone({
     setHeaders: accessToken ? { Authorization: `Bearer ${accessToken}` } : {},
@@ -15,16 +15,16 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   return next(authReq).pipe(
     catchError((error: HttpErrorResponse) => {
       if (error.status === 401) {
-        const refreshToken = authService.getRefreshToken();
+        const refreshToken = _authService.getRefreshToken();
 
         if (!refreshToken) {
-          authService.logout();
+          _authService.logout();
           return throwError(() => error);
         }
 
-        return authService.refreshToken().pipe(
+        return _authService.refreshToken().pipe(
           switchMap((response) => {
-            authService.login(response.token, response.refresh_token);
+            _authService.login(response.token, response.refresh_token);
 
             const newReq = req.clone({
               setHeaders: { Authorization: `Bearer ${response.token}` },
@@ -33,7 +33,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
             return next(newReq);
           }),
           catchError(() => {
-            authService.logout();
+            _authService.logout();
             return throwError(() => error);
           })
         );
