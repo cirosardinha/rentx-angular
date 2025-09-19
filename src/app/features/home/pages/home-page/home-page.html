@@ -1,0 +1,60 @@
+<div class="bg-gray-950 text-gray-200 min-h-screen flex flex-col">
+
+  <header class="bg-gray-900 border-b border-gray-800">
+    <div class="container mx-auto flex justify-between items-center px-6 py-4">
+      <h1 class="text-xl font-bold text-orange-400">RentX</h1>
+      <nav class="space-x-6">
+        <a routerLink="/" class="hover:text-orange-400 cursor-pointer transition-colors">Home</a>
+        <a routerLink="/cars" class="hover:text-orange-400 cursor-pointer transition-colors">Carros</a>
+        <a routerLink="/profile" class="hover:text-orange-400 cursor-pointer transition-colors">Perfil</a>
+        <a routerLink="/auth" class="hover:text-orange-400 cursor-pointer transition-colors">Sair</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-1 container mx-auto px-6 py-10">
+
+    <section class="text-center mb-10">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">
+        Encontre o carro perfeito para a sua próxima viagem
+      </h2>
+      <p class="text-gray-400 max-w-xl mx-auto">
+        Alugue veículos de forma rápida, prática e segura. Seu carro ideal
+        está a apenas alguns cliques de distância.
+      </p>
+      <button
+        class="mt-6 px-6 py-3 bg-orange-400 hover:bg-orange-500 text-white cursor-pointer font-semibold rounded-lg transition-colors"
+        routerLink="/cars">
+        Ver Carros
+      </button>
+    </section>
+
+    <section class="mt-10">
+      <h3 class="text-xl font-semibold mb-6">Carros em destaque</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        @for(car of cars; track car) {
+        <!-- card de carro futuramente -->
+        <div
+          class="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+          <div class="bg-gray-800 h-40 flex items-center justify-center">
+            <span class="text-gray-500">Imagem do carro</span>
+          </div>
+          <div class="p-4">
+            <h4 class="text-lg font-bold mb-2">Carro {{ car }}</h4>
+            <p class="text-gray-400 text-sm mb-4">Categoria - Automático</p>
+            <button
+              class="w-full py-2 bg-orange-400 hover:bg-orange-500 text-white cursor-pointer font-semibold rounded-lg transition-colors">
+              Reservar
+            </button>
+          </div>
+        </div>
+        }
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-gray-900 border-t border-gray-800 text-center py-4 text-gray-500 text-sm">
+    © 2025 RentX — Projeto fictício para fins de aprendizado. Nenhum serviço real de aluguel de carros está sendo
+    oferecido.
+  </footer>
