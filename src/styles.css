@@ -7,5 +7,5 @@ body {
 
 body {
   @apply bg-gray-950;
-  font-family: jetbrains mono, monospace, serif;
+  font-family: "Inter", sans-serif;
 }

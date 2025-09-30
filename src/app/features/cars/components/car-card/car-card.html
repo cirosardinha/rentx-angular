@@ -1,0 +1,22 @@
+<div
+  class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 flex flex-col">
+
+  <div class="bg-gray-800 h-48 flex items-center justify-center relative">
+    <span class="text-gray-500">Imagem do carro</span>
+    <div class="absolute top-2 right-2 bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded">
+      R$ {{ car.daily_rate }} / dia
+    </div>
+  </div>
+
+  <div class="p-4 flex flex-col flex-1">
+    <h3 class="text-lg font-bold text-white">{{ car.name }}</h3>
+    <p class="text-gray-400 text-sm">{{ car.description }}</p>
+    <p class="text-gray-400 text-sm">Marca: {{ car.brand }}</p>
+    <p class="text-gray-400 text-sm">Categoria: {{ car.category?.name }}</p>
+
+    <button
+      class="mt-auto w-full py-3 bg-orange-400 hover:bg-orange-500 text-white font-semibold rounded-lg transition-colors">
+      Reservar
+    </button>
+  </div>
+</div>
