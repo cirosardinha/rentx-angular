@@ -1,0 +1,9 @@
+<div class="container mx-auto px-6 py-10">
+  <h2 class="text-3xl font-bold mb-8 text-center text-orange-400">Carros Disponíveis</h2>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    @for(car of cars; track car.id){
+    <app-car-card></app-car-card>
+    }
+  </div>
+</div>

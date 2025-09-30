@@ -12,6 +12,11 @@ export const routes: Routes = [
       import('./features/auth/auth.routes').then((m) => m.authRoutes),
   },
   {
+    path: 'cars',
+    loadChildren: () =>
+      import('./features/cars/cars.routes').then((m) => m.carsRoutes),
+  },
+  {
     path: '**',
     redirectTo: '',
   },
