@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
-import { ILoginPayload } from '../interfaces/login-payload.interface';
-import { IRegisterPayload } from '../interfaces/register-payload.interface';
-import { ILoginResponse } from '../interfaces/login-response.interface';
+import { ILoginPayload } from '../dtos/login-payload-dto';
+import { IRegisterPayload } from '../dtos/register-payload-dto';
+import { ILoginResponse } from '../dtos/login-response-dto';
 import { Observable } from 'rxjs';
 
 @Injectable({
