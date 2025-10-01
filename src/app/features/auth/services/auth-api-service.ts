@@ -4,7 +4,11 @@ import { HttpClient } from '@angular/common/http';
 import { ILoginPayload } from '../dtos/login-payload-dto';
 import { IRegisterPayload } from '../dtos/register-payload-dto';
 import { ILoginResponse } from '../dtos/login-response-dto';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import {
+  IBackendRefreshTokenResponse,
+  IRefreshTokenResponse,
+} from '../dtos/refresh-token-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -21,9 +25,11 @@ export class AuthApiService {
     return this._http.post<void>(`${this.apiUrl}/users`, payload);
   }
 
-  refreshToken(refreshToken: string): Observable<ILoginResponse> {
-    return this._http.post<ILoginResponse>(`${this.apiUrl}/refresh-token`, {
-      refresh_token: refreshToken,
-    });
+  refreshToken(refreshToken: string): Observable<IRefreshTokenResponse> {
+    return this._http
+      .post<IBackendRefreshTokenResponse>(`${this.apiUrl}/refresh-token`, {
+        token: refreshToken,
+      })
+      .pipe(map((response) => response.refresh_token));
   }
 }
