@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../../../core/services/auth-service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth-form',
@@ -20,7 +21,9 @@ export class AuthForm {
   constructor(
     private fb: FormBuilder,
     private authApiService: AuthApiService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.form = this.fb.group({
       name: [
@@ -54,6 +57,9 @@ export class AuthForm {
     this.authApiService.login(this.form.value).subscribe({
       next: (response) => {
         this.authService.login(response.token, response.refresh_token);
+
+        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+        this.router.navigate([returnUrl || '/']);
         console.log(
           'login realizado com sucesso',
           'usuário:' + response.user.name

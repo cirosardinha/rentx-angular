@@ -13,8 +13,14 @@ export const routes: Routes = [
   },
   {
     path: 'cars',
+
     loadChildren: () =>
       import('./features/cars/cars.routes').then((m) => m.carsRoutes),
+  },
+  {
+    path: 'profile',
+    loadChildren: () =>
+      import('./features/profile/profile.routes').then((m) => m.profileRoutes),
   },
   {
     path: '**',

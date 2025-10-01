@@ -14,29 +14,15 @@
       <button
         class="mt-6 px-6 py-3 bg-orange-400 hover:bg-orange-500 text-white cursor-pointer font-semibold rounded-lg transition-colors"
         routerLink="/cars">
-        Ver Carros
+        Ver carros disponíveis
       </button>
     </section>
 
     <section class="mt-10">
       <h3 class="text-xl font-semibold mb-6">Carros em destaque</h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        @for(car of cars; track car) {
-        <!-- card de carro futuramente -->
-        <div
-          class="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-          <div class="bg-gray-800 h-40 flex items-center justify-center">
-            <span class="text-gray-500">Imagem do carro</span>
-          </div>
-          <div class="p-4">
-            <h4 class="text-lg font-bold mb-2">Carro {{ car }}</h4>
-            <p class="text-gray-400 text-sm mb-4">Categoria - Automático</p>
-            <button
-              class="w-full py-2 bg-orange-400 hover:bg-orange-500 text-white cursor-pointer font-semibold rounded-lg transition-colors">
-              Reservar
-            </button>
-          </div>
-        </div>
+        @for(car of (cars$ | async)?.slice(0, 3); track car.id) {
+        <app-car-card [car]="car"></app-car-card>
         }
       </div>
     </section>
