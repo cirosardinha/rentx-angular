@@ -1,33 +1,85 @@
-<header class="bg-gray-900 border-b border-gray-800 text-gray-200 relative z-50">
+<header class="bg-slate-900 border-b border-slate-800 text-slate-100 relative z-50">
   <div class="container mx-auto flex justify-between items-center px-6 py-4">
-    <h1 class="text-xl font-bold text-orange-400">RentX</h1>
+    <h1 class="text-xl font-bold text-blue-400">RentX</h1>
 
     <nav class="hidden md:flex space-x-6 items-center">
-      <a routerLink="/" class="hover:text-orange-400 transition-colors">Home</a>
-      <a routerLink="/cars" class="hover:text-orange-400 transition-colors">Carros</a>
-      <a routerLink="/profile" class="hover:text-orange-400 transition-colors">Perfil</a>
-      <button (click)="logout()" class="hover:text-orange-400 transition-colors">Sair</button>
+      <a routerLink="/" routerLinkActive="text-blue-400 font-medium" [routerLinkActiveOptions]="{exact: true}"
+        class="hover:text-blue-400 transition-colors">Home</a>
+      <a routerLink="/cars" routerLinkActive="text-blue-400 font-medium"
+        class="hover:text-blue-400 transition-colors">Carros</a>
+      <a routerLink="/profile" routerLinkActive="text-blue-400 font-medium"
+        class="hover:text-blue-400 transition-colors">Perfil</a>
+      <button (click)="logout()" class="hover:text-blue-400 cursor-pointer transition-colors">Sair</button>
     </nav>
 
-    <button class="md:hidden" (click)="toggleSidebar()">
-      <svg class="w-6 h-6 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <button class="md:hidden p-2 rounded-lg hover:bg-slate-800 transition-colors" (click)="toggleSidebar()"
+      aria-label="Menu">
+      <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
       </svg>
     </button>
   </div>
 
-  <div class="fixed md:hidden inset-0 bg-black z-40 transition-opacity duration-300" [class.opacity-0]="!isSidebarOpen"
-    [class.opacity-90]="isSidebarOpen" [class.pointer-events-none]="!isSidebarOpen" (click)="toggleSidebar()"></div>
+  <div class="fixed inset-0 bg-black/80 z-40 transition-opacity duration-300 ease-in-out md:hidden"
+    [class.opacity-100]="isSidebarOpen" [class.opacity-0]="!isSidebarOpen" [class.pointer-events-auto]="isSidebarOpen"
+    [class.pointer-events-none]="!isSidebarOpen" (click)="toggleSidebar()">
+  </div>
 
+  <!-- Mobile Sidebar -->
   <div
-    class="fixed md:hidden top-0 left-0 w-64 h-full bg-gray-900 shadow-lg z-50 p-6 flex flex-col space-y-4 transform transition-transform duration-500 ease-in-out"
-    [class.translate-x-0]="isSidebarOpen" [class.-translate-x-full]="!isSidebarOpen">
-    <button class="self-end text-gray-400 hover:text-orange-400">
-      ✕
-    </button>
-    <a routerLink="/" (click)="toggleSidebar()" class="hover:text-orange-400 transition-colors">Home</a>
-    <a routerLink="/cars" (click)="toggleSidebar()" class="hover:text-orange-400 transition-colors">Carros</a>
-    <a routerLink="/profile" (click)="toggleSidebar()" class="hover:text-orange-400 transition-colors">Perfil</a>
-    <button (click)="logout(); toggleSidebar()" class="hover:text-orange-400 transition-colors text-left">Sair</button>
+    class="fixed top-0 right-0 h-full w-72 bg-slate-800/95 backdrop-blur-sm z-50 transform transition-all duration-300 ease-in-out md:hidden shadow-2xl"
+    [class.translate-x-0]="isSidebarOpen" [class.translate-x-full]="!isSidebarOpen">
+
+    <div class="h-full flex flex-col">
+      <div class="flex justify-between items-center p-4 border-b border-slate-700/50">
+        <h2 class="text-lg font-semibold text-slate-100">Menu</h2>
+        <button (click)="toggleSidebar()" class="p-2 rounded-full hover:bg-slate-700/50 transition-colors"
+          aria-label="Fechar menu">
+          <svg class="w-5 h-5 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
+        <a routerLink="/" (click)="toggleSidebar()"
+          class="flex items-center p-3 rounded-lg hover:bg-slate-700/50 text-slate-200 transition-colors group">
+          <span class="flex-1">Home</span>
+          <svg class="w-4 h-4 text-slate-400 group-hover:text-blue-400 transition-colors" fill="none"
+            stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+
+        <a routerLink="/cars" (click)="toggleSidebar()"
+          class="flex items-center p-3 rounded-lg hover:bg-slate-700/50 text-slate-200 transition-colors group">
+          <span class="flex-1">Carros</span>
+          <svg class="w-4 h-4 text-slate-400 group-hover:text-blue-400 transition-colors" fill="none"
+            stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+
+        <a routerLink="/profile" (click)="toggleSidebar()"
+          class="flex items-center p-3 rounded-lg hover:bg-slate-700/50 text-slate-200 transition-colors group">
+          <span class="flex-1">Perfil</span>
+          <svg class="w-4 h-4 text-slate-400 group-hover:text-blue-400 transition-colors" fill="none"
+            stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+      </nav>
+
+      <div class="p-4 border-t border-slate-700/50">
+        <button (click)="logout(); toggleSidebar()"
+          class="w-full flex items-center justify-between p-3 rounded-lg bg-slate-700/50 hover:bg-slate-700 text-slate-200 transition-colors">
+          <span>Sair</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+          </svg>
+        </button>
+      </div>
+    </div>
   </div>
 </header>

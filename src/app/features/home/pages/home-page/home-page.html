@@ -1,35 +1,63 @@
-<div class="bg-gray-950 text-gray-200 min-h-screen flex flex-col">
+<div class="min-h-screen flex flex-col text-slate-100">
   <app-header></app-header>
 
-  <main class="flex-1 container mx-auto px-6 py-10">
-
-    <section class="text-center mb-10">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">
-        Encontre o carro perfeito para a sua próxima viagem
-      </h2>
-      <p class="text-gray-400 max-w-xl mx-auto">
-        Alugue veículos de forma rápida, prática e segura. Seu carro ideal
-        está a apenas alguns cliques de distância.
+  <main class="flex-1 container mx-auto px-4 py-12">
+    <section class="text-center mb-16 max-w-3xl mx-auto">
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-white">
+        Encontre o carro perfeito
+      </h1>
+      <p class="text-lg text-slate-300 mb-8">
+        Alugue veículos premium com conforto e segurança para sua próxima aventura.
       </p>
-      <button
-        class="mt-6 px-6 py-3 bg-orange-400 hover:bg-orange-500 text-white cursor-pointer font-semibold rounded-lg transition-colors"
-        routerLink="/cars">
-        Ver carros disponíveis
-      </button>
+      <div class="flex flex-col sm:flex-row justify-center gap-3">
+        <button
+          class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+          routerLink="/cars">
+          Ver carros disponíveis
+        </button>
+        <button
+          class="px-6 py-3 border border-slate-700 hover:bg-slate-800 text-slate-200 font-medium rounded-lg cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900">
+          Saiba mais
+        </button>
+      </div>
     </section>
 
-    <section class="mt-10">
-      <h3 class="text-xl font-semibold mb-6">Carros em destaque</h3>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    <section class="mb-16">
+      <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+        <h2 class="text-2xl font-semibold text-white">Carros em Destaque</h2>
+        <div class="flex items-center space-x-2 bg-slate-800 p-1 rounded-lg border border-slate-700 mt-4 md:mt-0">
+          <button
+            class="px-4 py-1.5 text-sm rounded-md bg-blue-600 hover:bg-blue-700 text-white cursor-pointer transition-colors">Todos</button>
+          <button
+            class="px-4 py-1.5 text-sm text-slate-400 hover:text-white cursor-pointer transition-colors">Esportivos</button>
+          <button
+            class="px-4 py-1.5 text-sm text-slate-400 hover:text-white cursor-pointer transition-colors">SUV</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         @for(car of (cars$ | async)?.slice(0, 3); track car.id) {
         <app-car-card [car]="car"></app-car-card>
         }
       </div>
-    </section>
 
+      <div class="mt-10 text-center">
+        <button routerLink="/cars"
+          class="inline-flex items-center px-6 py-3 border border-slate-700 text-slate-300 hover:bg-slate-800/50 rounded-lg cursor-pointer transition-colors group">
+          Ver todos os veículos
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </button>
+      </div>
+    </section>
   </main>
 
-  <footer class="bg-gray-900 border-t border-gray-800 text-center py-4 text-gray-500 text-sm">
-    © 2025 RentX — Projeto fictício para fins de aprendizado. Nenhum serviço real de aluguel de carros está sendo
-    oferecido.
+  <footer class="bg-slate-900/80 border-t border-slate-800 py-8">
+    <div class="container mx-auto px-4 text-center text-slate-400 text-sm">
+      <p>© 2025 RentX — Projeto fictício para fins de aprendizado.</p>
+      <p class="mt-2 text-slate-500">Nenhum serviço real de aluguel de carros está sendo oferecido.</p>
+    </div>
   </footer>
+</div>
