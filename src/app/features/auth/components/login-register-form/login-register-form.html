@@ -1,0 +1,98 @@
+<div class="min-h-screen flex items-center justify-center p-4">
+
+  <div class="w-full max-w-md bg-slate-800 border border-slate-700 p-8 md:p-10 rounded-xl shadow-2xl">
+
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-bold text-white mb-3">
+        {{ isLogin ? 'Bem-vindo' : 'Criar Conta' }}
+      </h2>
+      <p class="text-slate-400">
+        {{ isLogin ? 'Entre com sua conta para continuar' : 'Preencha os dados para começar' }}
+      </p>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="space-y-4">
+
+      @if(!isLogin){
+      <ng-container>
+        <div>
+          <input type="text" formControlName="name" placeholder="Nome completo"
+            class="w-full p-4 bg-slate-900 text-white rounded-lg placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 border border-slate-700 transition-colors">
+          @if(form.get('name')?.invalid && form.get('name')?.touched){
+          <div class="text-red-400 text-sm mt-2">
+            @if(form.get('name')?.errors?.['required']){
+            <span>Nome é obrigatório.</span>
+            }
+            @if(form.get('name')?.errors?.['minlength']){
+            <span>O nome precisa ter no mínimo 3 caracteres.</span>
+            }
+          </div>
+          }
+        </div>
+
+        <div>
+          <input type="text" formControlName="driver_license" placeholder="Número da CNH"
+            class="w-full p-4 bg-slate-900 text-white rounded-lg placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 border border-slate-700 transition-colors">
+          @if(form.get('driver_license')?.invalid && form.get('driver_license')?.touched){
+          <div class="text-red-400 text-sm mt-2">
+            @if(form.get('driver_license')?.errors?.['required']){
+            <span>CNH é obrigatória.</span>
+            }
+          </div>
+          }
+        </div>
+      </ng-container>
+      }
+
+      <div>
+        <input type="email" formControlName="email" placeholder="Seu e-mail"
+          class="w-full p-4 bg-slate-900 text-white rounded-lg placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 border border-slate-700 transition-colors">
+        @if(form.get('email')?.invalid && form.get('email')?.touched){
+        <div class="text-red-400 text-sm mt-2">
+          @if(form.get('email')?.errors?.['required']){
+          <span>E-mail é obrigatório.</span>
+          }
+          @if(form.get('email')?.errors?.['email']){
+          <span>Digite um e-mail válido.</span>
+          }
+        </div>
+        }
+      </div>
+
+      <div>
+        <input type="password" formControlName="password" placeholder="Sua senha"
+          class="w-full p-4 bg-slate-900 text-white rounded-lg placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 border border-slate-700 transition-colors">
+        @if(form.get('password')?.invalid && form.get('password')?.touched){
+        <div class="text-red-400 text-sm mt-2">
+          @if(form.get('password')?.errors?.['required']){
+          <span>Senha é obrigatória.</span>
+          }
+          @if(form.get('password')?.errors?.['minlength']){
+          <span>A senha precisa ter no mínimo 6 caracteres.</span>
+          }
+        </div>
+        }
+      </div>
+
+      <button type="submit" [disabled]="form.invalid"
+        class="w-full py-4 mt-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg cursor-pointer disabled:bg-slate-700 disabled:text-slate-500 disabled:cursor-not-allowed transition-colors shadow-md hover:shadow-lg">
+        {{ isLogin ? 'Entrar' : 'Criar Conta' }}
+      </button>
+
+      <button type="button" (click)="toggleForm()"
+        class="w-full py-4 border border-slate-700 hover:bg-slate-700/50 text-slate-300 font-semibold rounded-lg cursor-pointer transition-colors">
+        {{ isLogin ? 'Criar conta gratuita' : 'Já tenho conta' }}
+      </button>
+
+    </form>
+
+    <div class="mt-6 text-center">
+      <a routerLink="/"
+        class="text-slate-400 hover:text-white text-sm transition-colors cursor-pointer inline-flex items-center justify-center">
+        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Voltar para home
+      </a>
+    </div>
+  </div>
+</div>

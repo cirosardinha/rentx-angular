@@ -1,4 +1,4 @@
-import { AuthApiService } from './../../services/auth-api-service';
+import { AuthApiService } from '../../services/auth-api-service';
 import { Component } from '@angular/core';
 import {
   FormBuilder,
@@ -7,15 +7,15 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../../../core/services/auth-service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-auth-form',
-  imports: [ReactiveFormsModule],
-  templateUrl: './auth-form.html',
-  styleUrl: './auth-form.css',
+  selector: 'app-login-register-form',
+  imports: [ReactiveFormsModule, RouterLink],
+  templateUrl: './login-register-form.html',
+  styleUrl: './login-register-form.css',
 })
-export class AuthForm {
+export class LoginRegisterForm {
   isLogin = true;
   form: FormGroup;
   constructor(

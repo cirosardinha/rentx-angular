@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { AuthForm } from './pages/auth-form/auth-form';
+import { LoginRegisterForm } from './components/login-register-form/login-register-form';
 
 export const authRoutes: Routes = [
   {
     path: '',
-    component: AuthForm,
+    component: LoginRegisterForm,
   },
 ];
