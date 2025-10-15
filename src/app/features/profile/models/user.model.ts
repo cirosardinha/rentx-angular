@@ -4,5 +4,5 @@ export interface User {
   email: string;
   driver_license?: string;
   avatar?: string;
-  avatarUrl?: string | null;
+  avatar_url?: string | null;
 }
