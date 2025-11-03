@@ -1,12 +1,15 @@
 import { inject, Injectable } from '@angular/core';
 import { AuthApiService } from '../../features/auth/services/auth-api-service';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
+import { IRefreshTokenResponse } from '../../features/auth/dtos/refresh-token-dto';
+import { AppStateService } from './app-state-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private authApiService: AuthApiService = inject(AuthApiService);
+  private _authApiService: AuthApiService = inject(AuthApiService);
+  private _appStateService: AppStateService = inject(AppStateService);
 
   private ACCESS_TOKEN: string = 'access_token';
   private REFRESH_TOKEN: string = 'refresh_token';
@@ -31,24 +34,26 @@ export class AuthService {
 
   login(accessToken: string, refreshToken: string): void {
     this.setTokens(accessToken, refreshToken);
+    this._appStateService.triggerLogin();
   }
 
   logout(): void {
     this.clearTokens();
+    this._appStateService.triggerLogout();
   }
 
   isLoggedIn(): boolean {
     return !!this.getAccessToken();
   }
 
-  refreshToken() {
+  refreshToken(): Observable<IRefreshTokenResponse> {
     const refreshToken = this.getRefreshToken();
 
     if (!refreshToken) {
       throw new Error('Refresh token não encontrado');
     }
 
-    return this.authApiService
+    return this._authApiService
       .refreshToken(refreshToken)
       .pipe(
         tap((response) => this.login(response.token, response.refresh_token))
