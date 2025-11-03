@@ -20,7 +20,7 @@ export const routes: Routes = [
   {
     path: 'profile',
     loadChildren: () =>
-      import('./features/profile/profile.routes').then((m) => m.profileRoutes),
+      import('./features/user/profile.routes').then((m) => m.userRoutes),
   },
   {
     path: '**',
