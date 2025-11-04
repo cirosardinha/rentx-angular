@@ -14,4 +14,11 @@ export class RentalService {
   getRentalByUser(): Observable<Rental[]> {
     return this._http.get<Rental[]>(`${this.apiUrl}/user`);
   }
+
+  createRental(car_id: string, expected_return_date: Date): Observable<Rental> {
+    return this._http.post<Rental>(`${this.apiUrl}`, {
+      car_id,
+      expected_return_date,
+    });
+  }
 }

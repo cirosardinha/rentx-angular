@@ -41,9 +41,13 @@
       }
     </div>
 
-    <button
+    <button (click)="openModal()"
       class="mt-auto w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors cursor-pointer shadow-md hover:shadow-lg">
       Alugar
     </button>
+
   </div>
 </div>
+@if (showModal) {
+<app-rental-modal [car]="car" (confirm)="rentCar()" (close)="closeModal()"></app-rental-modal>
+}
