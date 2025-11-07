@@ -1,5 +1,5 @@
 import { AuthApiService } from '../../services/auth-api-service';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -8,6 +8,8 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../../../core/services/auth-service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ToastService } from '../../../../shared/services/toast-service';
+import { OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-login-register-form',
@@ -15,16 +17,19 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
   templateUrl: './login-register-form.html',
   styleUrl: './login-register-form.css',
 })
-export class LoginRegisterForm {
+export class LoginRegisterForm implements OnInit {
+  private fb = inject(FormBuilder);
+  private _toastService = inject(ToastService);
+  private _authApiService = inject(AuthApiService);
+  private _authService = inject(AuthService);
+  private _router = inject(Router);
+  private _route = inject(ActivatedRoute);
+
   isLogin = true;
+
   form: FormGroup;
-  constructor(
-    private fb: FormBuilder,
-    private authApiService: AuthApiService,
-    private authService: AuthService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {
+
+  constructor() {
     this.form = this.fb.group({
       name: [
         '',
@@ -34,6 +39,10 @@ export class LoginRegisterForm {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
+  }
+
+  ngOnInit(): void {
+    this.form.reset();
   }
 
   toggleForm() {
@@ -54,30 +63,33 @@ export class LoginRegisterForm {
   }
 
   onLoginSubmit() {
-    this.authApiService.login(this.form.value).subscribe({
+    this._authApiService.login(this.form.value).subscribe({
       next: (response) => {
-        this.authService.login(response.token, response.refresh_token);
+        this._authService.login(response.token, response.refresh_token);
 
-        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
-        this.router.navigate([returnUrl || '/']);
-        console.log(
-          'login realizado com sucesso',
-          'usuário:' + response.user.name
-        );
+        const returnUrl = this._route.snapshot.queryParamMap.get('returnUrl');
+        this._router.navigate([returnUrl || '/']);
       },
       error: (error) => {
-        console.error('erro ao realizar login', error);
+        this._toastService.error(`${error.error.error}`);
       },
     });
   }
 
   onRegisterSubmit() {
-    this.authApiService.register(this.form.value).subscribe({
+    this._authApiService.register(this.form.value).subscribe({
       next: (response) => {
-        console.log('cadastro realizado com sucesso');
+        this._toastService.success(
+          'Cadastro realizado com sucesso, faça login para continuar'
+        );
+        if (!this.isLogin) {
+          this.toggleForm();
+        }
+        const email = this.form.get('email')?.value;
+        this.form.reset({ email });
       },
       error: (error) => {
-        console.error('erro ao realizar cadastro', error.error);
+        this._toastService.error(`${error.error.error}`);
       },
     });
   }

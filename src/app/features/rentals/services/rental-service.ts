@@ -23,7 +23,6 @@ export class RentalService {
   }
 
   returnRental(rentalId: string): Observable<Rental> {
-    console.log('rentalId', rentalId);
     return this._http.post<Rental>(`${this.apiUrl}/devolution/${rentalId}`, {});
   }
 }

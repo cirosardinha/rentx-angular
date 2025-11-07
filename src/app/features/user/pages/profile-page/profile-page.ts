@@ -15,6 +15,7 @@ import { RentalCard } from '../../../rentals/components/rental-card/rental-card'
 import { RentalService } from '../../../rentals/services/rental-service';
 import { Rental } from '../../../rentals/models/rental.model';
 import { RouterLink } from '@angular/router';
+import { ToastService } from '../../../../shared/services/toast-service';
 
 @Component({
   selector: 'app-profile-page',
@@ -27,6 +28,7 @@ export class ProfilePage implements AfterViewInit {
 
   private _userService = inject(UserService);
   private _rentalService = inject(RentalService);
+  private _toastService = inject(ToastService);
 
   $user: Observable<User | null> = this._userService.user$;
 
@@ -68,13 +70,14 @@ export class ProfilePage implements AfterViewInit {
       .pipe(
         finalize(() => {
           this.isLoading = false;
+          this._toastService.success('Aluguel devolvido com sucesso');
           this.$rentals = this._rentalService.getRentalByUser();
         })
       )
       .subscribe({
         error: (error) => {
           console.error('Erro ao devolver aluguel:', error);
-          this.isLoading = false;
+          this._toastService.error('Erro ao devolver aluguel');
         },
       });
   }
