@@ -21,4 +21,9 @@ export class RentalService {
       expected_return_date,
     });
   }
+
+  returnRental(rentalId: string): Observable<Rental> {
+    console.log('rentalId', rentalId);
+    return this._http.post<Rental>(`${this.apiUrl}/devolution/${rentalId}`, {});
+  }
 }

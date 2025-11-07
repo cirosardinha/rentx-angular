@@ -6,7 +6,8 @@
   <div class="flex-auto px-5 pb-5">
     <p class="text-slate-300 text-sm">{{ rental.car!.description }}</p>
   </div>
-  <div class="flex-none border-t border-slate-700 bg-slate-900/50 p-5">
+
+  @if(!rental.end_date){ <div class="flex-none border-t border-slate-700 bg-slate-900/50 p-5">
     <div class="flex items-center justify-between">
       <p class="text-slate-400 text-sm font-medium">Preço por dia</p>
       <p class="text-blue-400 text-sm font-semibold">R$ {{ rental.car!.daily_rate | number:'1.2-2' }}</p>
@@ -23,5 +24,26 @@
         {{ rental.expected_return_date | date:'dd/MM/yyyy' }}
       </p>
     </div>
+
+    @if (!isLoading) {
+    <div class="mt-2 flex items-center justify-between">
+      <button (click)="onReturnRental()"
+        class="bg-blue-500 hover:bg-blue-600 text-white cursor-pointer px-4 py-2 rounded">
+        Devolver
+      </button>
+    </div>
+    }@else {
+    <app-loading-spinner></app-loading-spinner>
+    }
+  </div>}@else {
+  <div class="flex-none border-t border-slate-700 bg-slate-900/50 p-5">
+    <p class="text-slate-400 text-sm font-medium">Aluguel finalizado</p>
+    <p class="text-slate-300 text-sm font-medium">
+      {{ rental.end_date | date:'dd/MM/yyyy' }}
+    </p>
+    <p class="text-slate-300 text-sm font-medium">
+      {{ rental.total | number:'1.2-2' }}
+    </p>
   </div>
+  }
 </div>

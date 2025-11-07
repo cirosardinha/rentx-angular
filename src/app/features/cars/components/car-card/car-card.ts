@@ -29,7 +29,7 @@ export class CarCard implements OnInit {
   }
 
   rentCar() {
-    if (!sessionStorage.getItem('user')) {
+    if (!sessionStorage.getItem('access_token')) {
       alert('Faça login para alugar um carro');
       this.router.navigate(['/auth']);
       return;

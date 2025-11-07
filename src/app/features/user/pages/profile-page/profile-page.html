@@ -84,11 +84,11 @@
       @if (($rentals | async); as rentals) {
       <div class="mt-12">
         <h3 class="text-2xl text-white font-bold mb-6">Meus Aluguéis</h3>
-
         @if (rentals.length > 0) {
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           @for (rental of rentals; track rental.id) {
-          <app-rental-card [rental]="rental"></app-rental-card>
+          <app-rental-card [rental]="rental" (rentalReturned)="onRentalReturned($event)"
+            [isLoading]="isLoading"></app-rental-card>
           }
         </div>
         } @else {

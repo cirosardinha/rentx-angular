@@ -4,13 +4,12 @@ import {
   ElementRef,
   ViewChild,
   AfterViewInit,
-  OnInit,
 } from '@angular/core';
 import { UserService } from '../../services/user-service';
 import { Header } from '../../../../shared/components/header/header';
 import { AsyncPipe } from '@angular/common';
 import { LoadingSpinner } from '../../../../shared/components/loading-spinner/loading-spinner';
-import { Observable } from 'rxjs';
+import { finalize, Observable } from 'rxjs';
 import { User } from '../../models/user.model';
 import { RentalCard } from '../../../rentals/components/rental-card/rental-card';
 import { RentalService } from '../../../rentals/services/rental-service';
@@ -60,5 +59,23 @@ export class ProfilePage implements AfterViewInit {
         this.isLoading = false;
       },
     });
+  }
+
+  onRentalReturned(rentalId: string) {
+    this.isLoading = true;
+    this._rentalService
+      .returnRental(rentalId)
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+          this.$rentals = this._rentalService.getRentalByUser();
+        })
+      )
+      .subscribe({
+        error: (error) => {
+          console.error('Erro ao devolver aluguel:', error);
+          this.isLoading = false;
+        },
+      });
   }
 }
