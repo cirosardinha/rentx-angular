@@ -23,6 +23,11 @@ export const routes: Routes = [
       import('./features/user/profile.routes').then((m) => m.userRoutes),
   },
   {
+    path: 'admin',
+    loadChildren: () =>
+      import('./features/admin/admin.routes').then((m) => m.adminRoutes),
+  },
+  {
     path: '**',
     redirectTo: '',
   },

@@ -69,6 +69,7 @@ export class LoginRegisterForm implements OnInit {
 
         const returnUrl = this._route.snapshot.queryParamMap.get('returnUrl');
         this._router.navigate([returnUrl || '/']);
+        ('');
       },
       error: (error) => {
         this._toastService.error(`${error.error.error}`);
